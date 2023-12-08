@@ -498,6 +498,7 @@ class _CustomWavePainter extends CustomPainter {
         colors: _layer.gradient!,
       ).createShader(rect);
     }
+
     if (_layer.blur != null) {
       _paint.maskFilter = _layer.blur;
     }
