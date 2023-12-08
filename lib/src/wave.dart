@@ -493,12 +493,10 @@ class _CustomWavePainter extends CustomPainter {
       var rect = Offset.zero &
           Size(size.width, size.height - viewCenterY * heightPercentage!);
       _paint.shader = LinearGradient(
-              begin: gradientBegin == null
-                  ? Alignment.bottomCenter
-                  : gradientBegin!,
-              end: gradientEnd == null ? Alignment.topCenter : gradientEnd!,
-              colors: _layer.gradient!)
-          .createShader(rect);
+        begin: gradientBegin == null ? Alignment.bottomCenter : gradientBegin!,
+        end: gradientEnd == null ? Alignment.topCenter : gradientEnd!,
+        colors: _layer.gradient!,
+      ).createShader(rect);
     }
     if (_layer.blur != null) {
       _paint.maskFilter = _layer.blur;
