@@ -274,6 +274,7 @@ class _WaveWidgetState extends State<WaveWidget> with TickerProviderStateMixin {
         oldWidget.isLoop != widget.isLoop ||
         oldWidget.repeat != widget.repeat ||
         oldWidget.curve != widget.curve) {
+      ///
       _disposeAnimations();
       _initAnimations();
     }
