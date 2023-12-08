@@ -138,13 +138,50 @@ class CustomConfig extends Config {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
+    bool gradientsAreEqual = true;
+    bool heightsAreEqual = true;
+
+    if (other is CustomConfig) {
+      if (other.gradients?.length != gradients?.length) {
+        gradientsAreEqual = false;
+      } else {
+        if (other.gradients != null && gradients != null) {
+          for (int i = 0; i < gradients!.length; i++) {
+            final l1 = other.gradients![i];
+            final l2 = gradients![i];
+            if (!listEquals(l1, l2)) {
+              gradientsAreEqual = false;
+              break;
+            }
+          }
+        }
+      }
+
+      if (other.heightPercentages?.length != heightPercentages?.length) {
+        heightsAreEqual = false;
+      } else {
+        if (other.heightPercentages != null && heightPercentages != null) {
+          for (int i = 0; i < heightPercentages!.length; i++) {
+            final l1 = other.heightPercentages![i];
+            final l2 = heightPercentages![i];
+
+            final diff = (l1 - l2).abs();
+            if (l1 != l2 && diff > 0.001) {
+              heightsAreEqual = false;
+              break;
+            }
+          }
+        }
+      }
+    }
+
     return other is CustomConfig &&
         listEquals(other.colors, colors) &&
-        listEquals(other.gradients, gradients) &&
+        gradientsAreEqual &&
         other.gradientBegin == gradientBegin &&
         other.gradientEnd == gradientEnd &&
         listEquals(other.durations, durations) &&
-        listEquals(other.heightPercentages, heightPercentages) &&
+        heightsAreEqual &&
         other.blur == blur &&
         listEquals(other.enabledStrokes, enabledStrokes);
   }
